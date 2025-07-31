@@ -10,7 +10,7 @@ function App() {
 
   return (
     <>
-      <Button onClick={()=>window.open("https://codeforces.com/ratings/organization/3281")} text={"Share Brain"} variant={"secondary"} size={"sm"} startIcon={<PlusIcon />} rounded={"xl"} />
+      <Button onClick={()=>window.open("https://codeforces.com/ratings/organization/3281")} text={"Share Brain"} variant={"secondary"} size={"sm"} startIcon={<PlusIcon size={"md"}/>} rounded={"xl"} />
     </>
   )
 }

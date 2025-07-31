@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 @theme {
-    --color-bluedark-500 : #5046e4 ;
-    --color-bluelight-500 : #e0e7ff ;
-    --color-blueextra-500 : #4439be ;
+    --color-bluedark-500: #5046e4 ;
+    --color-bluelight-500: #e0e7ff ;
+    --color-blueextra-500: #4439be ;
 }

@@ -2,7 +2,6 @@ import {type ReactNode} from 'react'
 // The type keyword in the import tells TypeScript this is only used for type annotations and won't be 
 // needed at runtime.
 
-
 export interface ButtonProps {
     variant : "primary" | "secondary" ;
     size : "sm" | "md" | "lg" ;
@@ -11,7 +10,6 @@ export interface ButtonProps {
     onClick: ()=>void ;
     rounded: string ;
 }
-
 
 type variantStylesType = {
     "primary" : string ,
@@ -30,16 +28,22 @@ const variantStyles:variantStylesType = {
 //         </button>
 //     )
 // }
+const roundedStyles: {[key: string]: string} = {
+  sm: "rounded-sm",
+  md: "rounded-md",
+  lg: "rounded-lg",
+  xl: "rounded-xl",
+  full: "rounded-full"
+};
 export const Button = (props : ButtonProps)=>{
     const {variant, size, text, startIcon, onClick , rounded} = props;
     
-
     return (
-        <button onClick={onClick} className={`${variantStyles[variant]} flex  px-3 py-2 min-w-fit rounded-${rounded}`}>
-            
-            {startIcon  ? <div className="pr-2">{startIcon}</div> : null}
-            {text}
+        <button onClick={onClick} className={`${variantStyles[variant]} px-3 py-2 min-w-fit ${roundedStyles[rounded]}`}>
+            <div className='flex items-center'>
+                {startIcon  ? <div className="pr-2">{startIcon}</div> : null}
+                {text}
+            </div>
         </button>
     )
-    
 }
