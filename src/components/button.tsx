@@ -29,20 +29,22 @@ const variantStyles:variantStylesType = {
 //     )
 // }
 const roundedStyles: {[key: string]: string} = {
-  sm: "rounded-sm",
-  md: "rounded-md",
-  lg: "rounded-lg",
-  xl: "rounded-xl",
-  full: "rounded-full"
+  "sm": "rounded-sm",
+  "md": "rounded-md",
+  "lg": "rounded-lg",
+  "xl": "rounded-xl",
+  "full": "rounded-full"
 };
+const defaultStyles:string = "px-3 py-2 min-w-fit cursor-pointer font-normal" ;
+
 export const Button = (props : ButtonProps)=>{
     const {variant, size, text, startIcon, onClick , rounded} = props;
     
     return (
-        <button onClick={onClick} className={`${variantStyles[variant]} px-3 py-2 min-w-fit ${roundedStyles[rounded]}`}>
+        <button onClick={onClick} className={`${variantStyles[variant]} ${defaultStyles} ${roundedStyles[rounded]}`}>
             <div className='flex items-center'>
                 {startIcon  ? <div className="pr-2">{startIcon}</div> : null}
-                {text}
+                {text} 
             </div>
         </button>
     )
