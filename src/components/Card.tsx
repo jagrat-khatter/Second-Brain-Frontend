@@ -39,8 +39,8 @@ export const Card = ({
         <div className='flex items-center text-gray-700'>
           <button onClick={handleShare} className="flex items-center hover:bg-gray-100 p-1 rounded">
             <ShareIcon size={'md'} strokeWidth={2.0}/>
-            <div className='pl-2'>{title}</div>
           </button>
+          <div className='pl-2'>{title}</div>
         </div>
         <div className='flex items-center text-grayicon-500'>
           <button 

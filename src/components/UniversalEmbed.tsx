@@ -1,11 +1,6 @@
-import { detectUrlType,type EmbedData } from '../utils/urlDetector';
-import { EmbedContainer } from './embeds/EmbedContainer';
-import { VideoEmbed } from './embeds/VideoEmbed';
-import { ImageEmbed } from './embeds/ImageEmbed';
-import { AudioEmbed } from './embeds/AudioEmbed';
-import { InstagramEmbed } from './embeds/InstagramEmbed';
-import { TwitterEmbed } from './embeds/TwitterEmbed';
-import  {PreviewCard}  from './embeds/PreviewCard';
+import { detectUrlType, type EmbedData } from '../utils/urlDetector';
+import { XEmbed , InstagramEmbed , PinterestEmbed , YouTubeEmbed, FacebookEmbed, TikTokEmbed, LinkedInEmbed } from 'react-social-media-embed';
+
 
 interface UniversalEmbedProps {
   url: string;
@@ -35,87 +30,146 @@ export const UniversalEmbed = ({
     // Platforms that DON'T support embedding - use PreviewCard
     const nonEmbeddablePlatforms = ['netflix', 'prime', 'codeforces', 'codechef', 'leetcode', 'medium', 'stackoverflow', 'generic'];
     
-    if (nonEmbeddablePlatforms.includes(embedData.platform!)) {
+    // if (nonEmbeddablePlatforms.includes(embedData.platform!)) {
+    //   return (
+    //     <PreviewCard 
+    //       url={embedData.url} 
+    //       title={title}
+    //       platform={embedData.platform!}
+    //     />
+    //   );
+    // }
+    console.log(embedData.platform);
+    
+    if (embedData.platform === 'twitter') {
       return (
-        <PreviewCard 
-          url={embedData.url} 
-          title={title}
-          platform={embedData.platform!}
-        />
+        <div className='flex justify-center' >
+          <div className='max-h-96 overflow-y-auto w-80 border border-gray-200 rounded-lg bg-white custom-scrollbar' >
+          
+            <XEmbed url={`${embedData.url}`} width={325}/>
+          </div>
+        </div>
       );
     }
-
-    // Special case: Twitter (uses script loading, not iframe)
-    // In your renderContent function, update the Twitter case:
-    // Special case: Twitter (uses script loading, not iframe)
-        if (embedData.platform === 'twitter') {
-        return (
-            <TwitterEmbed 
-            url={embedData.url} 
-            title={title}
-            tweetId={embedData.embedUrl} // Pass the tweet ID
-            />
-        );
-        }
-    // Platforms WITH embedUrl - use specific embed components
-    if (embedData.embedUrl) {
-      switch (embedData.type) {
-        case 'video':
-          return (
-            <VideoEmbed 
-              embedUrl={embedData.embedUrl} 
-              title={title}
-              platform={embedData.platform!}
-            />
-          );
-          
-        case 'image':
-          if (embedData.platform === 'instagram') {
-            return (
-              <InstagramEmbed 
-                embedUrl={embedData.embedUrl}
-                url={embedData.url}
-                title={title} 
-              />
-            );
-          }
-          return (
-            <ImageEmbed 
-              url={embedData.embedUrl} 
-              title={title}
-              platform={embedData.platform!}
-            />
-          );
-          
-        case 'audio':
-          return (
-            <AudioEmbed 
-              embedUrl={embedData.embedUrl}
-              url={embedData.url}
-              title={title}
-              platform={embedData.platform!}
-            />
-          );
-      }
+    
+    if (embedData.platform === 'instagram') {
+      return (
+        <div className='flex justify-center' >
+          <div className='max-h-96 overflow-y-auto w-80 border border-gray-200 rounded-lg bg-white custom-scrollbar' >
+            <InstagramEmbed url={`${embedData.url}`} width={325}  captioned/>
+          </div>
+        </div>
+      );
     }
+    if(embedData.platform === 'linkedin'){
+      return (
+        <div className='flex justify-center' >
+          <div className='max-h-96 overflow-y-auto w-80 border border-gray-200 rounded-lg bg-white custom-scrollbar' >
+            <LinkedInEmbed url={`${embedData.url}`} width={325} height={570} />
+          </div>
+        </div>
+      )
+    }
+    if(embedData.platform === 'youtube'){
+      return (
+        <div className='flex justify-center' >
+          <div className='max-h-96 overflow-y-auto w-80 border border-gray-200 rounded-lg bg-white custom-scrollbar' >
+            <YouTubeEmbed url={`${embedData.url}`} width={320} height={220} />
+          </div>
+        </div>
+      )
+    }
+    if(embedData.platform === 'facebook'){
+      return (
+        <div className='flex justify-center' >
+          <div className='max-h-96 overflow-y-auto w-80 border border-gray-200 rounded-lg bg-white custom-scrollbar' >
+            <FacebookEmbed url={`${embedData.url}`} width={325} />
+          </div>
+        </div>
+      )
+    }
+    if(embedData.platform === 'pinterest'){
+      return (
+        <div className='flex justify-center' >
+          <div className='max-h-96 overflow-y-auto w-80 border border-gray-200 rounded-lg bg-white custom-scrollbar' >
+            <PinterestEmbed url={`${embedData.url}`} width={325} />
+          </div>
+        </div>
+      )
+    }
+    if(embedData.platform === 'tiktok'){
+      return (
+        <div className='flex justify-center' >
+          <div className='max-h-96 overflow-y-auto w-80 border border-gray-200 rounded-lg bg-white custom-scrollbar' >
+            <TikTokEmbed url={`${embedData.url}`} width={325} />
+          </div>
+        </div>
+      )
+    }
+    if(embedData.platform === 'spotify'){
+      return (
+         <iframe
+          src={embedData.embedUrl}
+          title={title}
+          className="w-full h-full"
+          frameBorder="0"
+          allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+        />
+      )
+    }
+    // // Platforms WITH embedUrl - use specific embed components
+    // if (embedData.embedUrl) {
+    //   switch (embedData.type) {
+    //     case 'video':
+    //       return (
+    //         <VideoEmbed 
+    //           embedUrl={embedData.embedUrl} 
+    //           title={title}
+    //           platform={embedData.platform!}
+    //         />
+    //       );
+          
+    //     case 'image':
+    //       return (
+    //         <ImageEmbed 
+    //           url={embedData.embedUrl} 
+    //           title={title}
+    //           platform={embedData.platform!}
+    //         />
+    //       );
+          
+    //     case 'audio':
+    //       return (
+    //         <AudioEmbed 
+    //           embedUrl={embedData.embedUrl}
+    //           url={embedData.url}
+    //           title={title}
+    //           platform={embedData.platform!}
+    //         />
+    //       );
+    //   }
+    // }
 
-    // Fallback for unsupported content
-    return (
-      <div className="h-32 flex items-center justify-center bg-gray-50 text-gray-500">
-        <span>Unsupported content type</span>
-      </div>
-    );
+    // // Fallback for unsupported content
+    // return (
+    //   <div className="h-32 flex items-center justify-center bg-gray-50 text-gray-500">
+    //     <span>Unsupported content type</span>
+    //   </div>
+    // );
   };
+  
+  // return (
+  //   <EmbedContainer 
+  //     title={title} 
+  //     platform={embedData.platform || 'unknown'}
+  //     url={url}
+  //     onShare={handleShare}
+  //     onDelete={onDelete}
+  //   >
+  //     {renderContent()}
+  //   </EmbedContainer>
+  // );
 
-  return (
-    <EmbedContainer 
-      title={title} 
-      platform={embedData.platform || 'unknown'}
-      url={url}
-      onShare={handleShare}
-      onDelete={onDelete}
-    >
-      {renderContent()}
-    </EmbedContainer>
-  );
+  return renderContent();
+
 };

@@ -16,42 +16,55 @@ export const detectUrlType = (url : string): EmbedData =>{
         return {
             type : 'video' , 
             url  ,
-            embedUrl : `https://www.youtube.com/embed/${videoId}` ,
             platform : 'youtube'
         }
     }
     // Twitter 
     if(urlLower.includes('twitter.com') || urlLower.includes('x.com')){
-    const tweetId = extractTwitterId(url);
-    return {
-        type : 'article' ,
-        url ,
-        embedUrl: tweetId, // Store tweet ID in embedUrl for TwitterEmbed
-        platform : 'twitter'
+        const tweetId = extractTwitterId(url);
+        return {
+            type : 'article' ,
+            url ,
+            platform : 'twitter'
+        }
     }
-}
+    // LinkedIn
+    if(urlLower.includes('linkedin.com')){
+        return {
+            type : 'article' ,
+            url ,
+            platform : 'linkedin'
+        }
+    }
 
-        // Instagram
+    // Instagram - Use native embed
     if(urlLower.includes('instagram.com')){
-        const postId = extractInstagramId(url);
         return {
             type: 'image',
             url,
-            embedUrl: `https://www.instagram.com/p/${postId}/embed/`,
             platform: 'instagram'
         }
     }
     
+    
     // Spotify
     if(urlLower.includes('spotify.com')){
-        const spotifyData = extractSpotifyData(url);
+    const spotifyData = extractSpotifyData(url);
+    if (spotifyData.id) {
         return {
             type: 'audio',
             url,
-            embedUrl: `https://open.spotify.com/embed/${spotifyData.type}/${spotifyData.id}`,
+            embedUrl: `https://open.spotify.com/embed/${spotifyData.type}/${spotifyData.id}?utm_source=generator&theme=0`,
             platform: 'spotify'
         }
     }
+    // Fallback if extraction fails
+    return {
+        type: 'audio',
+        url,
+        platform: 'spotify'
+    }
+}
     // Netflix - NO embedding allowed
     if(urlLower.includes('netflix.com')){
         return {
@@ -174,9 +187,22 @@ const extractInstagramId = (url: string): string => {
 };
 
 const extractSpotifyData = (url: string): { type: string; id: string } => {
-    const regex = /spotify\.com\/(track|album|playlist|artist)\/([a-zA-Z0-9]+)/;
-    const match = url.match(regex);
-    return match ? { type: match[1], id: match[2] } : { type: 'track', id: '' };
+    // Handle URLs with query parameters and different formats
+    const patterns = [
+        /spotify\.com\/(track|album|playlist|artist)\/([a-zA-Z0-9]+)/,
+        /open\.spotify\.com\/(track|album|playlist|artist)\/([a-zA-Z0-9]+)/
+    ];
+    
+    for (const pattern of patterns) {
+        const match = url.match(pattern);
+        if (match && match[1] && match[2]) {
+            console.log('Spotify match found:', { type: match[1], id: match[2] });
+            return { type: match[1], id: match[2] };
+        }
+    }
+    
+    console.error('Could not extract Spotify data from:', url);
+    return { type: 'track', id: '' };
 };
 const extractTwitterId = (url: string): string => {
     const patterns = [
