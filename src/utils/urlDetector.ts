@@ -58,6 +58,7 @@ export const detectUrlType = (url : string): EmbedData =>{
             platform: 'spotify'
         }
     }
+
     // Fallback if extraction fails
     return {
         type: 'audio',
@@ -121,6 +122,15 @@ export const detectUrlType = (url : string): EmbedData =>{
             type: 'article',
             url,
             platform: 'stackoverflow'
+        }
+    }
+
+    // Reddit
+    if(urlLower.includes('reddit.com')){
+        return {
+            type : 'article' ,
+            url,
+            platform : 'reddit'
         }
     }
         // Image extensions

@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { detectUrlType, type EmbedData } from '../utils/urlDetector';
 import { XEmbed , InstagramEmbed , PinterestEmbed , YouTubeEmbed, FacebookEmbed, TikTokEmbed, LinkedInEmbed } from 'react-social-media-embed';
 
@@ -29,6 +30,29 @@ export const UniversalEmbed = ({
   const renderContent = () => {
     // Platforms that DON'T support embedding - use PreviewCard
     const nonEmbeddablePlatforms = ['netflix', 'prime', 'codeforces', 'codechef', 'leetcode', 'medium', 'stackoverflow', 'generic'];
+    useEffect(() => {
+      // Load Reddit script dynamically
+      const script = document.createElement('script');
+      script.src = '//embed.redditmedia.com/widgets/platform.js';
+      script.async = true;
+      script.charset = 'UTF-8'; // Use regular HTML attribute here
+      
+      // Remove existing script if present
+      const existingScript = document.querySelector('script[src*="redditmedia.com"]');
+      if (existingScript) {
+        existingScript.remove();
+      }
+      
+      document.head.appendChild(script);
+
+      return () => {
+        // Cleanup on unmount
+        const scriptToRemove = document.querySelector('script[src*="redditmedia.com"]');
+        if (scriptToRemove) {
+          scriptToRemove.remove();
+        }
+      };
+    }, []);
     
     // if (nonEmbeddablePlatforms.includes(embedData.platform!)) {
     //   return (
@@ -108,14 +132,32 @@ export const UniversalEmbed = ({
     }
     if(embedData.platform === 'spotify'){
       return (
-         <iframe
-          src={embedData.embedUrl}
-          title={title}
-          className="w-full h-full"
-          frameBorder="0"
-          allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-        />
+        <div className='flex justify-center' >
+          <div className='max-h-96 overflow-y-auto w-80 border border-gray-200 rounded-lg bg-white custom-scrollbar' >
+            <iframe
+              src={embedData.embedUrl}
+              title={title}
+              width={325}
+              height={380}
+              frameBorder="0"
+              allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+            />
+          </div>
+        </div>
       )
+    }
+    if(embedData.platform === 'reddit'){
+      return (
+      <div className='flex justify-center'>
+        <div className='max-h-96 overflow-y-auto w-80 border border-gray-200 rounded-lg bg-white custom-scrollbar'>
+          <div>
+            <blockquote className="reddit-card" data-card-created="1490648549">
+              <a href={embedData.url}>Reddit Post Content</a> from <a href="http://www.reddit.com/r/worldnews">worldnews</a>
+            </blockquote>
+          </div>
+        </div>
+      </div>
+    );
     }
     // // Platforms WITH embedUrl - use specific embed components
     // if (embedData.embedUrl) {
