@@ -7,6 +7,7 @@ export interface EmbedData {
   platform?: string;
 }
 
+
 export const detectUrlType = (url : string): EmbedData =>{
     const urlLower = url.toLowerCase();
 

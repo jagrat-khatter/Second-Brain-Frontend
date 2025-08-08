@@ -6,9 +6,10 @@ export interface ButtonProps {
     variant : "primary" | "secondary" ;
     size : "sm" | "md" | "lg" ;
     text : string ;
-    startIcon : ReactNode ;
+    startIcon?: ReactNode ;
     onClick: ()=>void ;
     rounded: string ;
+    fullWidth?: boolean ;
 }
 
 type variantStylesType = {
@@ -38,11 +39,11 @@ const roundedStyles: {[key: string]: string} = {
 const defaultStyles:string = "px-3 py-2 min-w-fit cursor-pointer font-normal" ;
 
 export const Button = (props : ButtonProps)=>{
-    const {variant, size, text, startIcon, onClick , rounded} = props;
+    const {variant, size, text, startIcon, onClick , rounded , fullWidth} = props;
     
     return (
-        <button onClick={onClick} className={`${variantStyles[variant]} ${defaultStyles} ${roundedStyles[rounded]}`}>
-            <div className='flex items-center'>
+        <button onClick={onClick} className={`${variantStyles[variant]} ${defaultStyles} ${roundedStyles[rounded]} outline-none ${fullWidth ? 'w-full' : '' }`}>
+            <div className='flex items-center grid justify-items-center-safe'>
                 {startIcon  ? <div className="pr-2">{startIcon}</div> : null}
                 {text} 
             </div>
