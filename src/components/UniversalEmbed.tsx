@@ -1,6 +1,28 @@
 import { useEffect } from 'react';
 import { detectUrlType, type EmbedData } from '../utils/urlDetector';
-import { XEmbed , InstagramEmbed , PinterestEmbed , YouTubeEmbed, FacebookEmbed, TikTokEmbed, LinkedInEmbed } from 'react-social-media-embed';
+import React from 'react';
+
+const XEmbed = React.lazy(() =>
+  import('react-social-media-embed').then(m => ({ default: m.XEmbed }))
+);
+const InstagramEmbed = React.lazy(() =>
+  import('react-social-media-embed').then(m => ({ default: m.InstagramEmbed }))
+);
+const PinterestEmbed = React.lazy(() =>
+  import('react-social-media-embed').then(m => ({ default: m.PinterestEmbed }))
+);
+const YouTubeEmbed = React.lazy(() =>
+  import('react-social-media-embed').then(m => ({ default: m.YouTubeEmbed }))
+);
+const FacebookEmbed = React.lazy(() =>
+  import('react-social-media-embed').then(m => ({ default: m.FacebookEmbed }))
+);
+const TikTokEmbed = React.lazy(() =>
+  import('react-social-media-embed').then(m => ({ default: m.TikTokEmbed }))
+);
+const LinkedInEmbed = React.lazy(() =>
+  import('react-social-media-embed').then(m => ({ default: m.LinkedInEmbed }))
+);
 
 
 interface UniversalEmbedProps {
