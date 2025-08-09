@@ -10,6 +10,7 @@ export interface ButtonProps {
     onClick: ()=>void ;
     rounded: string ;
     fullWidth?: boolean ;
+    loading?: boolean ;
 }
 
 type variantStylesType = {
@@ -39,14 +40,17 @@ const roundedStyles: {[key: string]: string} = {
 const defaultStyles:string = "px-3 py-2 min-w-fit cursor-pointer font-normal" ;
 
 export const Button = (props : ButtonProps)=>{
-    const {variant, size, text, startIcon, onClick , rounded , fullWidth} = props;
+    const {variant, size, text, startIcon, onClick , rounded , fullWidth , loading} = props;
     
     return (
-        <button onClick={onClick} className={`${variantStyles[variant]} ${defaultStyles} ${roundedStyles[rounded]} outline-none ${fullWidth ? 'w-full' : '' }`}>
+        <button onClick={onClick} className={`${variantStyles[variant]} ${defaultStyles} ${roundedStyles[rounded]} outline-none 
+        ${fullWidth ? 'w-full' : ''  } disabled:cursor-not-allowed disabled:opacity-40`} disabled={loading} >
             <div className='flex items-center grid justify-items-center-safe'>
-                {startIcon  ? <div className="pr-2">{startIcon}</div> : null}
+                {startIcon  ? <div className="pr-2">{startIcon}</div> : null}  
                 {text} 
             </div>
-        </button>
+        </button> 
     )
 }
+
+

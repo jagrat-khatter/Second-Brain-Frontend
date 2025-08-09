@@ -1,0 +1,1 @@
+export const BACKEND_URL : string = 'https://second-brain-backend-x1sk.onrender.com/api/v1/'
