@@ -4,6 +4,7 @@ import { Button } from "../components/button";
 import axios from "axios";
 import { BACKEND_URL } from "../config";
 import {useNavigate} from 'react-router-dom'
+import { Heading } from "../components/Heading";
 
 
 export function Signup (){
@@ -38,6 +39,7 @@ export function Signup (){
 
     return <div className='h-screen w-screen bg-bluelight-500 flex justify-center items-center'>
         <div className='bg-white rounded border-2  border-blueextra-500 min-w-84 p-8' >
+            <Heading label={'Signup'} />
             <InputBox placeHolder='Username' type='text' ref={usernameRef} fullWidth={true} />
             <InputBox placeHolder='Password' type='text' ref={passwordRef} fullWidth={true} />
             <div className='flex justify-center pt-8'>

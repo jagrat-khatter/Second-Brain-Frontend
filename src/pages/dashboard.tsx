@@ -1,4 +1,4 @@
-import { useState  , useRef} from 'react'
+import { useState  , useRef, useEffect} from 'react'
 
 import {Button} from '../components/button.tsx'
 import {PlusIcon} from '../icons/PlusIcon.tsx'
@@ -8,10 +8,31 @@ import { Card } from '../components/Card.tsx'
 
 import { CreateContentModal } from '../components/CreateComponentModal.tsx'
 import { SideBar } from '../components/Sidebar.tsx'
+import axios from 'axios'
+import { BACKEND_URL } from '../config.ts'
 
 export function Dashboard() {
   const [count, setCount] = useState(0);
   const [open , setOpen] = useState(false);
+  useEffect(()=>{
+    try
+    {
+      const main = async ()=>{
+        
+        const token:string = 'Bearer ' +  localStorage.getItem('brainly_token');
+        console.log(token);
+        const response = await axios.get(BACKEND_URL + 'getContent' ,{headers:{
+          Authorization : token
+        }});
+
+        console.log(response.data);
+      }
+      main()
+    }
+    catch(err){
+      console.log(err);
+    }
+  } , )
 
   return (
     <>
