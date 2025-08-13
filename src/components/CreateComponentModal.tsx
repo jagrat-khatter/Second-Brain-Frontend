@@ -1,18 +1,44 @@
 import { useRef, useState } from 'react'
 import { CrossIcon } from '../icons/CrossIcon'
 import { InputBox } from './InputBox'
+import { Button } from './button';
+import axios from 'axios';
+import { BACKEND_URL } from '../config';
 
 
 export function CreateContentModal({open , onClose}:any){
     const backgroundRef = useRef<HTMLDivElement>(null);
+    const [link , setLink] = useState('');
+    const [title , setTitle] = useState('');
+
     const handleInputChange = (value: string)=>{
         if(backgroundRef.current){
             if(value && value.trim().length > 0) {
                     backgroundRef.current.style.backgroundColor = 'rgb(34 197 94)'; // green-500
+                    if(value.startsWith("<iframe") || value.startsWith("https")){
+                        setLink(value);
+                    }
+                    else setTitle(value);
             }
             else {
                 backgroundRef.current.style.backgroundColor = 'rgb(248 113 113)';
             }
+        }
+    }
+    const addContent = ()=>{
+        try{
+            const main =async ()=>{
+                const response =await axios.post(BACKEND_URL + 'addContent' ,{type : "article" , 
+                    link : link , title: title , tags : ["problem" , "study" , "documnetation"]
+                }, {headers : {
+                    Authorization : "Bearer " + localStorage.getItem('brainly_token')
+                }} )
+            }
+
+            main();
+        }
+        catch(err){
+
         }
     }
 
@@ -29,6 +55,8 @@ export function CreateContentModal({open , onClose}:any){
                     <div className=''>
                         <InputBox type={'text'} placeHolder={'Title'} onChange={handleInputChange} />
                         <InputBox type={'text'} placeHolder={'link'} onChange={handleInputChange} />
+                        <Button onClick={()=>addContent()} text={'Add Content'} variant={"primary"} size={"sm"} 
+                            rounded={'xl'}/>
                      </div>
                 </span>
             </div>

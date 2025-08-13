@@ -1,6 +1,6 @@
 import { ShareIcon } from "../icons/shareIcon"
 import { TrashIcon } from "../icons/TrashIcon"
-import { UniversalEmbed } from './UniversalEmbed';
+import  UniversalEmbed  from './UniversalEmbed';
 
 interface CardProps {
   url: string;

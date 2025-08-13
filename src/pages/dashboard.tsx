@@ -14,6 +14,8 @@ import { BACKEND_URL } from '../config.ts'
 export function Dashboard() {
   const [count, setCount] = useState(0);
   const [open , setOpen] = useState(false);
+  const [data , setData] = useState(null);
+  const [cards , setCards] = useState(<div></div>)
   useEffect(()=>{
     try
     {
@@ -24,7 +26,10 @@ export function Dashboard() {
         const response = await axios.get(BACKEND_URL + 'getContent' ,{headers:{
           Authorization : token
         }});
-
+        const array = response.data.map((x:any)=>{
+            return(<Card url={x.link}  title={x.title}/>)
+        })
+        setCards(array);
         console.log(response.data);
       }
       main()
@@ -32,7 +37,7 @@ export function Dashboard() {
     catch(err){
       console.log(err);
     }
-  } , )
+  } , [])
 
   return (
     <>
@@ -47,24 +52,7 @@ export function Dashboard() {
           <Button onClick={()=>setOpen(x => !x)} text={'Add Content'} variant={"primary"} size={"sm"} 
           startIcon={<PlusIcon size={"md"} strokeWidth={3.5}/>} rounded={'xl'}/>
       </div>
-      <Card 
-        url="https://x.com/CoinDCX/status/1951540469638250808"
-        title="My tweet" />
-      <Card 
-        url="https://www.instagram.com/zuck/p/DI9fsHuTebe/"
-        title="My tweet" />
-      <Card 
-        url="https://www.youtube.com/watch?v=s6-_6JlgT0c"
-        title="My tweet" />
-      <Card 
-        url="https://www.linkedin.com/embed/feed/update/urn:li:activity:7341423091467612163/"
-        title="My tweet" />
-      <Card 
-        url="https://open.spotify.com/track/2AUoNO8jxBWGmq0R5SbBYD"
-        title="My Song" />
-        <Card 
-        url="https://www.reddit.com/r/codeforces/"
-        title="Reddit Post" />
+        {cards}
       </div>
     </>
   ) 
