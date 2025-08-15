@@ -16,14 +16,15 @@ export function SideBar(){
             <h1 className="font-mono text-3xl">Brainly</h1>
         </div>
         <div>
-            <SidebarItem icon={<HomeIcon size={'xl'} />} text={'Home'} />
-            <SidebarItem icon={<TwitterIcon size={'xl'} />} text={'Twitter'} />
-            <SidebarItem icon={<InstagramIcon size={'xl'} />} text={'Twitter'} />
-            <SidebarItem icon={<YouTubeIcon size={'xl'} />} text={'Twitter'} />
-            <SidebarItem icon={<FacebookIcon size={'xl'} />} text={'Twitter'} />
-            <SidebarItem icon={<LinkedInIcon size={'xl'} />} text={'Twitter'} />
-            <SidebarItem icon={<PinterestIcon size={'xl'} />} text={'Twitter'} />
-            <SidebarItem icon={<RedditIcon size={'xl'} />} text={'Twitter'} />
+            <SidebarItem icon={<HomeIcon size={'xl'} />} text={'Home'} onclick=''/>
+            <SidebarItem icon={<TwitterIcon size={'xl'} />} text={'Twitter'} onclick='twitter' />
+            <SidebarItem icon={<LinkedInIcon size={'xl'} />} text={'LinkedIn'} onclick='linkedin' />
+            <SidebarItem icon={<YouTubeIcon size={'xl'} />} text={'Youtube'} onclick='youtube' />
+            <SidebarItem icon={<SpotifyIcon size={'xl'} />} text={'Spotify'} onclick='spotify' />
+            <SidebarItem icon={<InstagramIcon size={'xl'} />} text={'Instagram'} onclick='instagram' />
+            <SidebarItem icon={<FacebookIcon size={'xl'} />} text={'Facebook'} onclick='facebook' />
+            <SidebarItem icon={<RedditIcon size={'xl'} />} text={'Reddit'} onclick='reddit' />
+            <SidebarItem icon={<PinterestIcon size={'xl'} />} text={'Pinterest'} onclick='pinterest' />
         </div>
         
     </div>

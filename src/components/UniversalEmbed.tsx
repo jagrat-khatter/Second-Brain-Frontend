@@ -106,9 +106,7 @@ export default function UniversalEmbed({
   if (platform === "instagram") {
     const cleanUrl = url.endsWith("/") ? url : url + "/";
     
-    return box(
-      <iframe width="320" height="440" src="https://www.instagram.com/p/C8P4EM2Snzh/embed/" ></iframe>
-    );
+    return <iframe width="324" height="440" src="https://www.instagram.com/p/C8P4EM2Snzh/embed/" ></iframe>
   }
 
   // --- Fixed LinkedIn embed ---
@@ -127,72 +125,71 @@ export default function UniversalEmbed({
         "open.spotify.com/embed/$1/$2"
       );
     }
-    return box(
-      <iframe
+    return (<iframe
         src={embedUrl}
-        width="100%"
+        width="324"
         height="152"
         frameBorder={0}
         allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
         title={title}
-      />
-    );
+      />)
+    ;
   }
 
   // --- untouched: other platform renders ---
   if (platform === "tiktok") {
     const videoId = url.split("/video/")[1]?.split("?")[0];
-    return box(
-      <blockquote className="tiktok-embed" cite={url} data-video-id={videoId}>
+    return (<blockquote className="tiktok-embed" cite={url} data-video-id={videoId}>
         <section>
           <a href={url}>{title || "View on TikTok"}</a>
         </section>
-      </blockquote>
-    );
+      </blockquote>)
   }
 
   if (platform === "youtube") {
     const src = url.includes("embed/") ? url : url.replace("watch?v=", "embed/");
-    return box(
-      <iframe
+    return (
+    <iframe
         title={title}
         src={src}
-        width="100%"
+        width="324"
         height="315"
         frameBorder={0}
+        style={{borderRadius : '8px'}}
         allowFullScreen
-      />
-    );
+      />)
   }
 
   if (platform === "reddit") {
-    return box(
-      <blockquote className="reddit-card">
-        <a href={url}>{title || "View on Reddit"}</a>
-      </blockquote>
-    );
+    return (<blockquote 
+      className="reddit-card" 
+      style={{
+        width: "324px",
+        border: "1px solid #ddd",
+        borderRadius: "8px",
+        padding: "16px",
+        margin: "0",
+        backgroundColor: "#f8f9fa"
+      }}
+    >
+      <a href={url}>{title || "View on Reddit"}</a>
+    </blockquote>)
   }
 
   if (platform === "pinterest") {
-    return box(
-      <a data-pin-do="embedPin" href={url}>
+    return (<a data-pin-do="embedPin" href={url}>
         {title || "View on Pinterest"}
-      </a>
-    );
+      </a>)
   }
 
   if (platform === "twitter") {
-    return box(
-      <blockquote className="twitter-tweet">
+    return ( <blockquote className="twitter-tweet" >
       <a href="https://twitter.com/username/status/807811447862468608"></a> 
-    </blockquote>
-    );
+    </blockquote>)
   }
 
   if (platform === "facebook") {
-    return box(
-      <div className="fb-post" data-href={url} data-width="500"></div>
-    );
+    return <div className="fb-post" data-href={url} data-width="500"></div>
   }
 
   // Generic iframe fallback

@@ -53,7 +53,7 @@ export const Card = ({
         </div>
       </div>
       
-      <div className='w-full mt-2'>
+      <div className='w-fit mt-2'>
         <UniversalEmbed 
           url={url}
           title={title}

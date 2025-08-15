@@ -10,6 +10,8 @@ import { CreateContentModal } from '../components/CreateComponentModal.tsx'
 import { SideBar } from '../components/Sidebar.tsx'
 import axios from 'axios'
 import { BACKEND_URL } from '../config.ts'
+import { Outlet } from 'react-router-dom'
+
 
 export function Dashboard() {
   const [count, setCount] = useState(0);
@@ -52,7 +54,7 @@ export function Dashboard() {
           <Button onClick={()=>setOpen(x => !x)} text={'Add Content'} variant={"primary"} size={"sm"} 
           startIcon={<PlusIcon size={"md"} strokeWidth={3.5}/>} rounded={'xl'}/>
       </div>
-        {cards}
+        <Outlet />
       </div>
     </>
   ) 
