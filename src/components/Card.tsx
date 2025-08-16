@@ -55,6 +55,7 @@ export const Card = ({
       
       <div className='w-fit mt-2'>
         <UniversalEmbed 
+        
           url={url}
           title={title}
           onShare={handleShare}

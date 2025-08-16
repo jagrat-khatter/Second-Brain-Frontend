@@ -1,4 +1,4 @@
-import { useState  , useRef, useEffect} from 'react'
+import { useState  , useRef, useEffect, Suspense} from 'react'
 
 import {Button} from '../components/button.tsx'
 import {PlusIcon} from '../icons/PlusIcon.tsx'
@@ -18,28 +18,28 @@ export function Dashboard() {
   const [open , setOpen] = useState(false);
   const [data , setData] = useState(null);
   const [cards , setCards] = useState(<div></div>)
-  useEffect(()=>{
-    try
-    {
-      const main = async ()=>{
+  // useEffect(()=>{
+  //   try
+  //   {
+  //     const main = async ()=>{
         
-        const token:string = 'Bearer ' +  localStorage.getItem('brainly_token');
-        console.log(token);
-        const response = await axios.get(BACKEND_URL + 'getContent' ,{headers:{
-          Authorization : token
-        }});
-        const array = response.data.map((x:any)=>{
-            return(<Card url={x.link}  title={x.title}/>)
-        })
-        setCards(array);
-        console.log(response.data);
-      }
-      main()
-    }
-    catch(err){
-      console.log(err);
-    }
-  } , [])
+  //       const token:string = 'Bearer ' +  localStorage.getItem('brainly_token');
+  //       console.log(token);
+  //       const response = await axios.get(BACKEND_URL + 'getContent' ,{headers:{
+  //         Authorization : token
+  //       }});
+  //       const array = response.data.map((x:any)=>{
+  //           return(<Card url={x.link}  title={x.title}/>)
+  //       })
+  //       setCards(array);
+  //       console.log(response.data);
+  //     }
+  //     main()
+  //   }
+  //   catch(err){
+  //     console.log(err);
+  //   }
+  // } , [])
 
   return (
     <>
@@ -54,7 +54,9 @@ export function Dashboard() {
           <Button onClick={()=>setOpen(x => !x)} text={'Add Content'} variant={"primary"} size={"sm"} 
           startIcon={<PlusIcon size={"md"} strokeWidth={3.5}/>} rounded={'xl'}/>
       </div>
+      <Suspense fallback={<div>loading</div>} >
         <Outlet />
+      </Suspense>
       </div>
     </>
   ) 

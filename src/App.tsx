@@ -18,31 +18,33 @@ import { Pinterest } from './pages/pinterest.tsx'
 import { Reddit } from './pages/reddit.tsx'
 import { Home } from './pages/home.tsx'
 import { NotFound } from './pages/notfound.tsx'
+import { RecoilRoot } from 'recoil'
 
 function App() {
-  const [count, setCount] = useState(0);
+  
   const [open , setOpen] = useState(false);
 
 
-  return (<BrowserRouter>
-            <Routes>
-              <Route path='/signup' element={<Signup />} />
-              <Route path='/signin' element={<Signin />} />
-              <Route path='/dashboard' element={<Dashboard />} >
-                <Route path='/dashboard/twitter' element={<Twitter />} />
-                <Route path='/dashboard/linkedin' element={<LinkedIn />} />
-                <Route path='/dashboard/youtube' element={<Youtube />} />
-                <Route path='/dashboard/spotify' element={<Spotify />} />
-                <Route path='/dashboard/instagram' element={<Instagram />} />
-                <Route path='/dashboard/facebook' element={<Facebook />} />
-                <Route path='/dashboard/pinterest' element={<Pinterest />} />
-                <Route path='/dashboard/reddit' element={<Reddit />} />
-                <Route path='/dashboard' element={<Home />} />
-                <Route path='*' element={<NotFound />} />
-              </Route>
+  return (<RecoilRoot>
+              <BrowserRouter>
+                <Routes>
+                  <Route path='/signup' element={<Signup />} />
+                  <Route path='/signin' element={<Signin />} />
+                  <Route path='/dashboard' element={<Dashboard />}>
+                    <Route index element={<Home />} />                    {/* /dashboard */}
+                    <Route path='twitter' element={<Twitter />} />        {/* /dashboard/twitter */}
+                    <Route path='linkedin' element={<LinkedIn />} />      {/* /dashboard/linkedin */}
+                    <Route path='youtube' element={<Youtube />} />        {/* /dashboard/youtube */}
+                    <Route path='spotify' element={<Spotify />} />        {/* /dashboard/spotify */}
+                    <Route path='instagram' element={<Instagram />} />    {/* /dashboard/instagram */}
+                    <Route path='facebook' element={<Facebook />} />      {/* /dashboard/facebook */}
+                    <Route path='pinterest' element={<Pinterest />} />    {/* /dashboard/pinterest */}
+                    <Route path='reddit' element={<Reddit />} />          {/* /dashboard/reddit */}
+                  </Route>
 
-            </Routes>
-          </BrowserRouter>)
+                </Routes>
+              </BrowserRouter>
+          </RecoilRoot>)
     
 }
 // when there are shared components then we use nested routing 

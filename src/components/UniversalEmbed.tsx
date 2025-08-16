@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 
 interface UniversalEmbedProps {
+  key?:string, 
   url: string;
   title?: string;
   onShare?: () => void;

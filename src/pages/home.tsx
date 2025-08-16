@@ -1,3 +1,6 @@
-export const Home = ()=>{
-    return <>Home</>
+
+import { SpecificPage } from '../components/specificPage';
+
+export const Home =()=>{
+    return <SpecificPage contains={''} />
 }
