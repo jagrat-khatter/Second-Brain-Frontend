@@ -85,7 +85,7 @@ export default function UniversalEmbed({
         })
         .catch(() => {});
     }
-  }, [platform, url]);
+  }, [platform, url ]);
 
   // Wrapper style
   const box = (children: React.ReactNode) => (
@@ -190,7 +190,7 @@ export default function UniversalEmbed({
   }
 
   if (platform === "facebook") {
-    return <div className="fb-post" data-href={url} data-width="500"></div>
+    return <iframe src="https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2F90 BaddiesOnly%2Fposts%2f1209378601225584 Show_text=true& width=500" width="500" height="371" className="border:none;overflow:hidden" scrolling="no" frameBorder="0"  allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
   }
 
   // Generic iframe fallback

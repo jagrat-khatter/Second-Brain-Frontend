@@ -1,12 +1,15 @@
+import axios from "axios";
 import { ShareIcon } from "../icons/shareIcon"
 import { TrashIcon } from "../icons/TrashIcon"
 import  UniversalEmbed  from './UniversalEmbed';
+import { BACKEND_URL } from "../config";
 
 interface CardProps {
   url: string;
   title?: string;
   onShare?: () => void;
-  onDelete?: () => void;
+  onDelete?: string ;
+  id?: number;
 }
 
 export const Card = ({ 
@@ -24,10 +27,28 @@ export const Card = ({
       alert('URL copied to clipboard!');
     }
   };
-
-  const handleDelete = () => {
+  
+const handleDelete = async () => {
     if (onDelete) {
-      onDelete();
+      const token: string = 'Bearer ' + localStorage.getItem('brainly_token');
+      const del = await axios.delete(BACKEND_URL + 'delete', {
+            headers: {
+                Authorization: token,
+                'Cache-Control': 'no-cache, no-store, must-revalidate',
+                'Pragma': 'no-cache',
+                'Expires': '0'
+            },
+            data : {
+              contentId : onDelete
+            } ,
+            params: {
+                _t: Date.now() // Cache buster
+            }
+        } )
+         window.location.reload();
+        console.log(del.data)
+        
+      console.log("Content Deleted");
     } else {
       console.log('Delete clicked for:', url);
     }
@@ -59,7 +80,6 @@ export const Card = ({
           url={url}
           title={title}
           onShare={handleShare}
-          onDelete={handleDelete}
         />
       </div>
     </div>
