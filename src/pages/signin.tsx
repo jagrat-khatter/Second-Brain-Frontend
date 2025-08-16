@@ -41,8 +41,8 @@ export function Signin (){
     return <div className='h-screen w-screen bg-bluelight-500 flex justify-center items-center'>
         <div className='bg-white rounded border-2  border-blueextra-500 min-w-84 p-8' >
             <Heading label={'Signin'} />
-            <InputBox placeHolder='Username' type='text' ref={usernameRef} fullWidth={true} />
-            <InputBox placeHolder='Password' type='text' ref={passwordRef} fullWidth={true} />
+            <InputBox placeHolder='Username' type='text' inputRef={usernameRef} fullWidth={true} />
+            <InputBox placeHolder='Password' type='text' inputRef={passwordRef} fullWidth={true} />
             <div className='flex justify-center pt-8'>
                 <Button onClick={()=>signin()} variant={'primary'} text={'Sign Up'} size={'sm'} rounded={'md'} fullWidth={true} loading={false} />
             </div>
